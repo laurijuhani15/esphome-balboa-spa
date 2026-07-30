@@ -82,9 +82,6 @@ namespace esphome
             case BalboaSpaBinarySensorType::HIGHRANGE:
                 sensor_state_value = spaState->highrange;
                 break;
-            case BalboaSpaBinarySensorType::CIRCULATION:
-                sensor_state_value = spaState->circulation;
-                break;
             case BalboaSpaBinarySensorType::RESTMODE:
                 state_value = spaState->rest_mode;
                 sensor_state_value = state_value;
