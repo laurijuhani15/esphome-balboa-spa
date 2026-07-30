@@ -15,11 +15,9 @@ namespace esphome
     public:
       enum class BalboaSpaSensorType : uint8_t
       {
-        BLOWER = 1,
-        HIGHRANGE = 2,
-        CIRCULATION = 3,
-        RESTMODE = 4,
-        HEATSTATE = 5,
+        HIGHRANGE = 1,
+        RESTMODE = 2,
+        HEATSTATE = 3,
       };
 
     public:
