@@ -248,34 +248,9 @@ namespace esphome
             send_command = 0x11;
         }
 
-        void BalboaSpa::toggle_light2()
-        {
-            send_command = 0x12;
-        }
-
         void BalboaSpa::toggle_jet1()
         {
             send_command = 0x04;
-        }
-
-        void BalboaSpa::toggle_jet2()
-        {
-            send_command = 0x05;
-        }
-
-        void BalboaSpa::toggle_jet3()
-        {
-            send_command = 0x06;
-        }
-
-        void BalboaSpa::toggle_jet4()
-        {
-            send_command = 0x07;
-        }
-
-        void BalboaSpa::toggle_blower()
-        {
-            send_command = 0x0C;
         }
 
         void BalboaSpa::clear_reminder()
@@ -592,33 +567,11 @@ namespace esphome
         {
             ESP_LOGD(TAG, "Spa/config/status: Got config");
             spaConfig.pump1 = input_queue[5] & 0x03;
-            spaConfig.pump2 = (input_queue[5] & 0x0C) >> 2;
-            spaConfig.pump3 = (input_queue[5] & 0x30) >> 4;
-            spaConfig.pump4 = (input_queue[5] & 0xC0) >> 6;
-            spaConfig.pump5 = (input_queue[6] & 0x03);
-            spaConfig.pump6 = (input_queue[6] & 0xC0) >> 6;
             spaConfig.light1 = (input_queue[7] & 0x03);
-            spaConfig.light2 = (input_queue[7] >> 2) & 0x03;
-            spaConfig.circ = ((input_queue[8] & 0x80) != 0);
-            spaConfig.blower = ((input_queue[8] & 0x03) != 0);
-            spaConfig.mister = ((input_queue[9] & 0x30) != 0);
-            spaConfig.aux1 = ((input_queue[9] & 0x01) != 0);
-            spaConfig.aux2 = ((input_queue[9] & 0x02) != 0);
             spaConfig.temperature_scale = input_queue[3] & 0x01; // Read temperature scale - 0 -> Farenheit, 1-> Celcius
             spaConfig.clock_mode = (input_queue[3] >> 1) & 0x1;  // Read clock mode - 0 -> 12h, 1-> 24h
             ESP_LOGD(TAG, "Spa/config/pumps1: %d", spaConfig.pump1);
-            ESP_LOGD(TAG, "Spa/config/pumps2: %d", spaConfig.pump2);
-            ESP_LOGD(TAG, "Spa/config/pumps3: %d", spaConfig.pump3);
-            ESP_LOGD(TAG, "Spa/config/pumps4: %d", spaConfig.pump4);
-            ESP_LOGD(TAG, "Spa/config/pumps5: %d", spaConfig.pump5);
-            ESP_LOGD(TAG, "Spa/config/pumps6: %d", spaConfig.pump6);
             ESP_LOGD(TAG, "Spa/config/light1: %d", spaConfig.light1);
-            ESP_LOGD(TAG, "Spa/config/light2: %d", spaConfig.light2);
-            ESP_LOGD(TAG, "Spa/config/circ: %d", spaConfig.circ);
-            ESP_LOGD(TAG, "Spa/config/blower: %d", spaConfig.blower);
-            ESP_LOGD(TAG, "Spa/config/mister: %d", spaConfig.mister);
-            ESP_LOGD(TAG, "Spa/config/aux1: %d", spaConfig.aux1);
-            ESP_LOGD(TAG, "Spa/config/aux2: %d", spaConfig.aux2);
             ESP_LOGD(TAG, "Spa/config/temperature_scale: %d", spaConfig.temperature_scale);
             ESP_LOGD(TAG, "Spa/config/clock_mode: %d", spaConfig.clock_mode);
             config_request_status = 2;
@@ -732,42 +685,7 @@ namespace esphome
                 spaState.jet1 = spa_component_state;
             }
 
-            spa_component_state = (input_queue[16] & 0x0C) >> 2; // Bits 2-3 for jet2
-            if (spa_component_state != spaState.jet2)
-            {
-                ESP_LOGD(TAG, "Spa/jet_2/state: %.0f", spa_component_state);
-                spaState.jet2 = spa_component_state;
-            }
-
-            spa_component_state = (input_queue[16] & 0x30) >> 4; // Bits 4-5 for jet3
-            if (spa_component_state != spaState.jet3)
-            {
-                ESP_LOGD(TAG, "Spa/jet_3/state: %.0f", spa_component_state);
-                spaState.jet3 = spa_component_state;
-            }
-
-            spa_component_state = (input_queue[16] & 0xC0) >> 6; // Bits 6-7 for jet4
-            if (spa_component_state != spaState.jet4)
-            {
-                ESP_LOGD(TAG, "Spa/jet_4/state: %.0f", spa_component_state);
-                spaState.jet4 = spa_component_state;
-            }
-
             // 18:Flags Byte 13
-            spa_component_state = bitRead(input_queue[18], 1);
-            if (spa_component_state != spaState.circulation)
-            {
-                ESP_LOGD(TAG, "Spa/circ/state: %.0f", spa_component_state);
-                spaState.circulation = spa_component_state;
-            }
-
-            spa_component_state = bitRead(input_queue[18], 2);
-            if (spa_component_state != spaState.blower)
-            {
-                ESP_LOGD(TAG, "Spa/blower/state: %.0f", spa_component_state);
-                spaState.blower = spa_component_state;
-            }
-
             spa_component_state = input_queue[19] == 0x03;
             // 19:Flags Byte 14
             if (spa_component_state != spaState.light)
@@ -776,12 +694,6 @@ namespace esphome
                 spaState.light = spa_component_state;
             }
 
-            spa_component_state = (input_queue[19] & 0x0C) >> 2; // Check bits 2-3 for light2;
-            if (spa_component_state != spaState.light2)
-            {
-                ESP_LOGD(TAG, "Spa/light2/state: %.0f", spa_component_state);
-                spaState.light2 = spa_component_state;
-            }
 
             // 24:Flags Byte 19 - Cleanup Cycle (bits 0-3: 0x0C=ON, 0x04=OFF, 0x00=N/A)
             spa_component_state = ((input_queue[24] & 0x0F) == CLEANUP_CYCLE_ACTIVE_VALUE) ? 1 : 0;
