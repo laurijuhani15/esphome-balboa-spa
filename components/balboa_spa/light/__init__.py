@@ -11,16 +11,13 @@ from .. import (
 DEPENDENCIES = ["balboa_spa"]
 
 LightsLight = balboa_spa_ns.class_("LightsLight", light.LightOutput)
-Light2Light = balboa_spa_ns.class_("Light2Light", light.LightOutput)
 
 CONF_LIGHT = "light"
-CONF_LIGHT2 = "light2"
 
 CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(CONF_SPA_ID): cv.use_id(BalboaSpa),
         cv.Optional(CONF_LIGHT): light.light_schema(LightsLight, light.LightType.BINARY),
-        cv.Optional(CONF_LIGHT2): light.light_schema(Light2Light, light.LightType.BINARY),
     })
 
 async def to_code(config):
