@@ -412,6 +412,13 @@ namespace esphome
                     else if (send_command == 0x25)
                     {
                         // Filter configuration command
+
+                        // Filter 2 uses fixed values.
+                        target_filter2_start_hour = 0;
+                        target_filter2_start_minute = 0;
+                        target_filter2_duration_hour = 24;
+                        target_filter2_duration_minute = 0;
+                
                         output_queue.push(client_id);
                         output_queue.push(0xBF);
                         output_queue.push(0x23);
