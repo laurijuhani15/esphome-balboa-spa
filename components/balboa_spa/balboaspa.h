@@ -63,12 +63,7 @@ namespace esphome
       void set_filter2_duration(uint8_t hour, uint8_t minute);
       void disable_filter2();
       void toggle_light();
-      void toggle_light2();
       void toggle_jet1();
-      void toggle_jet2();
-      void toggle_jet3();
-      void toggle_jet4();
-      void toggle_blower();
       void set_highrange(bool high);
       void clear_reminder();
 
