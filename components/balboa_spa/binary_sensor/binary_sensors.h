@@ -16,9 +16,7 @@ namespace esphome
       enum class BalboaSpaBinarySensorType : uint8_t
       {
         UNKNOWN = 0,
-        BLOWER,
         HIGHRANGE,
-        CIRCULATION,
         RESTMODE,
         HEATSTATE,
         CONNECTED,
