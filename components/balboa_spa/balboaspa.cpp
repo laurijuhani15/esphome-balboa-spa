@@ -256,6 +256,12 @@ namespace esphome
         {
             send_command = 0x25;
         }
+
+        void BalboaSpa::request_filter_settings()
+        {
+            request_filter_settings_update();
+        }
+        
         void BalboaSpa::read_serial()
         {
             if (!read_byte(&received_byte))
