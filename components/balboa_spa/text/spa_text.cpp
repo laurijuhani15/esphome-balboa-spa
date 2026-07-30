@@ -244,17 +244,11 @@ namespace esphome
                 std::string current_time;
                 
                 // If filter2 is disabled, clear the text field
-                if (settings->filter2_enable == 0)
-                {
-                    current_time = "";
-                    ESP_LOGD(TAG, "Filter 2 is disabled - clearing start time field");
-                }
-                else
-                {
-                    char time_str[6];
-                    snprintf(time_str, sizeof(time_str), "%02d:%02d", settings->filter2_hour, settings->filter2_minute);
-                    current_time = std::string(time_str);
-                }
+                char time_str[6];
+                snprintf(time_str, sizeof(time_str), "%02d:%02d",
+                         settings->filter2_hour,
+                         settings->filter2_minute);
+                current_time = std::string(time_str);
                 
                 // Only update if the value has changed to avoid unnecessary updates
                 if (this->state != current_time)
@@ -306,17 +300,11 @@ namespace esphome
                 std::string current_duration;
                 
                 // If filter2 is disabled, clear the text field
-                if (settings->filter2_enable == 0)
-                {
-                    current_duration = "";
-                    ESP_LOGD(TAG, "Filter 2 is disabled - clearing duration field");
-                }
-                else
-                {
-                    char time_str[6];
-                    snprintf(time_str, sizeof(time_str), "%02d:%02d", settings->filter2_duration_hour, settings->filter2_duration_minute);
-                    current_duration = std::string(time_str);
-                }
+                char time_str[6];
+                snprintf(time_str, sizeof(time_str), "%02d:%02d",
+                         settings->filter2_duration_hour,
+                         settings->filter2_duration_minute);
+                current_duration = std::string(time_str);
                 
                 // Only update if the value has changed to avoid unnecessary updates
                 if (this->state != current_duration)
