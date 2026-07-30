@@ -5,20 +5,20 @@
 
 namespace esphome
 {
-namespace balboa_spa
-{
+    namespace balboa_spa
+    {
 
-class ApplyFilterSettingsButton : public button::Button
-{
-public:
-    void set_parent(BalboaSpa *parent);
+        class ApplyFilterSettingsButton : public button::Button
+        {
+        public:
+            void set_parent(BalboaSpa *parent);
 
-protected:
-    void press_action() override;
+        protected:
+            void press_action() override;
 
-private:
-    BalboaSpa *parent_;
-};
+        private:
+            BalboaSpa *parent_;
+        };
 
-}  // namespace balboa_spa
+    }  // namespace balboa_spa
 }  // namespace esphome
