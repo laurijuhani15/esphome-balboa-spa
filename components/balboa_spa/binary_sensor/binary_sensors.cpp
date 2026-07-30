@@ -79,9 +79,6 @@ namespace esphome
             uint8_t state_value = 0;
             switch (sensor_type)
             {
-            case BalboaSpaBinarySensorType::BLOWER:
-                sensor_state_value = spaState->blower;
-                break;
             case BalboaSpaBinarySensorType::HIGHRANGE:
                 sensor_state_value = spaState->highrange;
                 break;
