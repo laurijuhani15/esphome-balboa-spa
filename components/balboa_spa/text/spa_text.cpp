@@ -227,6 +227,63 @@ namespace esphome
             return ::esphome::balboa_spa::validate_time_format(time_str, hour, minute);
         }
 
+        void SpaFilter2EnableText::set_parent(BalboaSpa *parent)
+        {
+            this->parent_ = parent;
+
+            parent->register_filter_listener([this](SpaFilterSettings *settings) {
+                this->update_from_filter_settings(settings);
+            });
+        }
+
+        void SpaFilter2EnableText::update_from_filter_settings(SpaFilterSettings *settings)
+        {
+            if (settings == nullptr)
+                return;
+
+            std::string value = settings->filter2_enable ? "1" : "0";
+
+        if (this->state != value)
+            {
+                this->state = value;
+                this->publish_state(value);
+                ESP_LOGD(TAG, "Filter 2 enable updated from tub: %s", value.c_str());
+            }
+        }
+
+        void SpaFilter2EnableText::control(const std::string &value)
+        {
+            std::string v = value;
+
+            // Muutetaan pieniksi kirjaimiksi
+            std::transform(v.begin(), v.end(), v.begin(),
+                           [](unsigned char c){ return std::tolower(c); });
+
+            bool enable;
+
+            if (v == "1" || v == "on" || v == "true" || v == "enable")
+            {
+                enable = true;
+            }
+            else if (v == "0" || v == "off" || v == "false" || v == "disable")
+            {
+                enable = false;
+            }
+            else
+            {
+                ESP_LOGW(TAG, "Invalid Filter 2 enable value: %s", value.c_str());
+                this->parent_->request_filter_settings_update();
+                return;
+            }
+
+            this->parent_->set_filter2_enable(enable);
+
+            this->state = enable ? "1" : "0";
+            this->publish_state(this->state);
+
+            ESP_LOGI(TAG, "Filter 2 enable set to: %s", this->state.c_str());
+        }
+
         // SpaFilter2StartTimeText implementation
         void SpaFilter2StartTimeText::set_parent(BalboaSpa *parent)
         {
