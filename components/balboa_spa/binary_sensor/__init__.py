@@ -20,7 +20,6 @@ DEPENDENCIES = ["balboa_spa"]
 SpaSensor = balboa_spa_ns.class_("BalboaSpaBinarySensors", binary_sensor.BinarySensor)
 SpaSensorTypeEnum = SpaSensor.enum("BalboaSpaBinarySensorType", True)
 
-CONF_BLOWER = "blower"
 CONF_HIGHRANGE = "highrange"
 CONF_CIRCULATION = "circulation"
 CONF_RESTMODE = "restmode"
@@ -33,11 +32,6 @@ CONF_CLEANUP_CYCLE = "cleanup_cycle"
 CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(CONF_SPA_ID): cv.use_id(BalboaSpa),
-        cv.Optional(CONF_BLOWER): binary_sensor.binary_sensor_schema(
-            SpaSensor,
-            device_class=DEVICE_CLASS_POWER,
-            entity_category=ENTITY_CATEGORY_DIAGNOSTIC
-        ),
         cv.Optional(CONF_HIGHRANGE): binary_sensor.binary_sensor_schema(
             SpaSensor,
             entity_category=ENTITY_CATEGORY_DIAGNOSTIC
@@ -86,7 +80,7 @@ async def to_code(config):
     parent = await cg.get_variable(config[CONF_SPA_ID])
 
     sensor_types = [
-        CONF_BLOWER, CONF_HIGHRANGE, CONF_CIRCULATION, CONF_RESTMODE,
+        CONF_HIGHRANGE, CONF_CIRCULATION, CONF_RESTMODE,
         CONF_HEATSTATE, CONF_CONNECTED, CONF_FILTER1_RUNNING,
         CONF_FILTER2_RUNNING, CONF_CLEANUP_CYCLE,
     ]
