@@ -20,14 +20,8 @@ namespace esphome
 
             switch (sensor_type)
             {
-            case BalboaSpaSensorType::BLOWER:
-                sensor_state_value = spaState->blower;
-                break;
             case BalboaSpaSensorType::HIGHRANGE:
                 sensor_state_value = spaState->highrange;
-                break;
-            case BalboaSpaSensorType::CIRCULATION:
-                sensor_state_value = spaState->circulation;
                 break;
             case BalboaSpaSensorType::RESTMODE:
                 sensor_state_value = spaState->rest_mode;
