@@ -253,6 +253,7 @@ namespace esphome
 
         void BalboaSpa::apply_filter_settings()
         {
+            target_filter2_enable = true;   // VAIN TESTI
             send_command = 0x25;
         }
 
