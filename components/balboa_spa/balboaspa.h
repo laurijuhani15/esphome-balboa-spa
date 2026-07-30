@@ -66,6 +66,7 @@ namespace esphome
       void toggle_jet1();
       void set_highrange(bool high);
       void clear_reminder();
+      void apply_filter_settings();
 
       void set_spa_temp_scale(TEMP_SCALE scale);
       void set_esphome_temp_scale(TEMP_SCALE scale);
