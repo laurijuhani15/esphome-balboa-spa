@@ -34,3 +34,6 @@ async def to_code(config):
     if conf := config.get(CONF_CLEAR_REMINDER):
         var = await button.new_button(conf)
         cg.add(var.set_parent(parent))
+    if conf := config.get(CONF_APPLY_FILTER_SETTINGS):
+        var = await button.new_button(conf)
+        cg.add(var.set_parent(parent))
