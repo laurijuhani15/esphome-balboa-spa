@@ -162,12 +162,12 @@ namespace esphome
                 this->state = value;
                 this->publish_state(value);
                 ESP_LOGI(TAG, "Filter 1 start time set to: %s", value.c_str());
-                // Request fresh filter settings from spa after update
-                this->parent_->request_filter_settings_update();
             }
             else
             {
                 ESP_LOGW(TAG, "Invalid time format: %s. Expected H:MM or HH:MM", value.c_str());
+                // Request filter settings from spa after invalid time format
+                this->parent_->request_filter_settings_update();
             }
         }
 
@@ -213,12 +213,12 @@ namespace esphome
                 this->state = value;
                 this->publish_state(value);
                 ESP_LOGI(TAG, "Filter 1 duration set to: %s", value.c_str());
-                // Request fresh filter settings from spa after update
-                this->parent_->request_filter_settings_update();
             }
             else
             {
                 ESP_LOGW(TAG, "Invalid time format: %s. Expected H:MM or HH:MM", value.c_str());
+                // Request filter settings from spa after invalid time format
+                this->parent_->request_filter_settings_update();
             }
         }
 
@@ -275,12 +275,12 @@ namespace esphome
                 this->state = value;
                 this->publish_state(value);
                 ESP_LOGI(TAG, "Filter 2 start time set to: %s", value.c_str());
-                // Request fresh filter settings from spa after update
-                this->parent_->request_filter_settings_update();
             }
             else
             {
                 ESP_LOGW(TAG, "Invalid time format: %s. Expected H:MM or HH:MM", value.c_str());
+                // Request filter settings from spa after invalid time format
+                this->parent_->request_filter_settings_update();
             }
         }
 
@@ -337,12 +337,12 @@ namespace esphome
                 this->state = value;
                 this->publish_state(value);
                 ESP_LOGI(TAG, "Filter 2 duration set to: %s", value.c_str());
-                // Request fresh filter settings from spa after update
-                this->parent_->request_filter_settings_update();
             }
             else
             {
                 ESP_LOGW(TAG, "Invalid time format: %s. Expected H:MM or HH:MM", value.c_str());
+                // Request filter settings from spa after invalid time format
+                this->parent_->request_filter_settings_update();
             }
         }
 
