@@ -23,7 +23,7 @@ CONFIG_SCHEMA = cv.Schema(
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_SPA_ID])
 
-    for light_key in [CONF_LIGHT, CONF_LIGHT2]:
+    for light_key in [CONF_LIGHT]:
         if conf := config.get(light_key):
             output_var = await light.new_light(conf)
             cg.add(output_var.set_parent(parent))
