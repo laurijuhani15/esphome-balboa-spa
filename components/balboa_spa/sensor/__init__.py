@@ -16,9 +16,7 @@ SpaSensorTypeEnum = SpaSensor.enum("BalboaSpaSensorType", True)
 SpaFaultLogSensor = balboa_spa_ns.class_("BalboaSpaFaultLogSensors", sensor.Sensor)
 SpaFaultLogSensorTypeEnum = SpaFaultLogSensor.enum("BalboaSpaFaultLogSensorType", True)
 
-CONF_BLOWER = "blower"
 CONF_HIGHRANGE = "highrange"
-CONF_CIRCULATION = "circulation"
 CONF_RESTMODE = "restmode"
 CONF_HEATSTATE = "heatstate"
 CONF_FAULT_CODE = "fault_code"
@@ -29,13 +27,7 @@ CONF_FAULT_DAYS_AGO = "fault_days_ago"
 CONFIG_SCHEMA = cv.Schema(
     {
         cv.GenerateID(CONF_SPA_ID): cv.use_id(BalboaSpa),
-        cv.Optional(CONF_BLOWER): sensor.sensor_schema(
-            SpaSensor,
-        ),
         cv.Optional(CONF_HIGHRANGE): sensor.sensor_schema(
-            SpaSensor,
-        ),
-        cv.Optional(CONF_CIRCULATION): sensor.sensor_schema(
             SpaSensor,
         ),
         cv.Optional(CONF_RESTMODE): sensor.sensor_schema(
@@ -61,7 +53,7 @@ CONFIG_SCHEMA = cv.Schema(
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_SPA_ID])
 
-    for sensor_type in [CONF_BLOWER, CONF_HIGHRANGE, CONF_CIRCULATION, CONF_RESTMODE, CONF_HEATSTATE]:
+    for sensor_type in [CONF_HIGHRANGE, CONF_RESTMODE, CONF_HEATSTATE]:
         if conf := config.get(sensor_type):
             var = await sensor.new_sensor(conf)
             cg.add(var.set_parent(parent))
