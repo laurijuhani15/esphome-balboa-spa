@@ -185,7 +185,6 @@ namespace esphome
                 target_filter2_start_minute = start_minute;
                 target_filter2_duration_hour = duration_hour;
                 target_filter2_duration_minute = duration_minute;
-                target_filter2_enable = true;
             }
         }
 
@@ -222,7 +221,6 @@ namespace esphome
             {
                 target_filter2_start_hour = hour;
                 target_filter2_start_minute = minute;
-                target_filter2_enable = true;
                 ESP_LOGI(TAG, "Filter 2 start time set to %02d:%02d", hour, minute);
             }
         }
@@ -233,7 +231,6 @@ namespace esphome
             {
                 target_filter2_duration_hour = hour;
                 target_filter2_duration_minute = minute;
-                target_filter2_enable = true;
                 ESP_LOGI(TAG, "Filter 2 duration set to %02d:%02d", hour, minute);
             }
         }
