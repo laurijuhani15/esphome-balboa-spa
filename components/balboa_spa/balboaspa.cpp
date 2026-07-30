@@ -189,9 +189,11 @@ namespace esphome
             }
         }
 
-        void BalboaSpa::disable_filter2()
+        void BalboaSpa::set_filter2_enable(bool enable)
         {
-            target_filter2_enable = false;
+            target_filter2_enable = enable;
+
+            ESP_LOGI(TAG, "Filter 2 %s", enable ? "enabled" : "disabled");
         }
 
         void BalboaSpa::set_filter1_start_time(uint8_t hour, uint8_t minute)
