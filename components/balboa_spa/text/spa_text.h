@@ -70,35 +70,5 @@ namespace esphome
       BalboaSpa *parent_;
     };
 
-    class SpaFilter2StartTimeText : public text::Text
-    {
-    public:
-      SpaFilter2StartTimeText() = default;
-      void set_parent(BalboaSpa *parent);
-      void update_from_filter_settings(SpaFilterSettings *settings);
-
-    protected:
-      void control(const std::string &value) override;
-
-    private:
-      BalboaSpa *parent_;
-      bool validate_time_format(const std::string &time_str, uint8_t &hour, uint8_t &minute);
-    };
-
-    class SpaFilter2DurationText : public text::Text
-    {
-    public:
-      SpaFilter2DurationText() = default;
-      void set_parent(BalboaSpa *parent);
-      void update_from_filter_settings(SpaFilterSettings *settings);
-
-    protected:
-      void control(const std::string &value) override;
-
-    private:
-      BalboaSpa *parent_;
-      bool validate_time_format(const std::string &time_str, uint8_t &hour, uint8_t &minute);
-    };
-
   } // namespace balboa_spa
 } // namespace esphome
