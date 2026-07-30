@@ -174,7 +174,6 @@ namespace esphome
                 target_filter1_start_minute = start_minute;
                 target_filter1_duration_hour = duration_hour;
                 target_filter1_duration_minute = duration_minute;
-                send_command = 0x25; // Filter configuration command
             }
         }
 
@@ -187,14 +186,12 @@ namespace esphome
                 target_filter2_duration_hour = duration_hour;
                 target_filter2_duration_minute = duration_minute;
                 target_filter2_enable = true;
-                send_command = 0x25; // Filter configuration command
             }
         }
 
         void BalboaSpa::disable_filter2()
         {
             target_filter2_enable = false;
-            send_command = 0x25; // Filter configuration command
         }
 
         void BalboaSpa::set_filter1_start_time(uint8_t hour, uint8_t minute)
@@ -203,7 +200,6 @@ namespace esphome
             {
                 target_filter1_start_hour = hour;
                 target_filter1_start_minute = minute;
-                send_command = 0x25; // Filter configuration command
                 ESP_LOGI(TAG, "Filter 1 start time set to %02d:%02d", hour, minute);
             }
         }
@@ -214,7 +210,6 @@ namespace esphome
             {
                 target_filter1_duration_hour = hour;
                 target_filter1_duration_minute = minute;
-                send_command = 0x25; // Filter configuration command
                 ESP_LOGI(TAG, "Filter 1 duration set to %02d:%02d", hour, minute);
             }
         }
@@ -226,7 +221,6 @@ namespace esphome
                 target_filter2_start_hour = hour;
                 target_filter2_start_minute = minute;
                 target_filter2_enable = true;
-                send_command = 0x25; // Filter configuration command
                 ESP_LOGI(TAG, "Filter 2 start time set to %02d:%02d", hour, minute);
             }
         }
@@ -238,7 +232,6 @@ namespace esphome
                 target_filter2_duration_hour = hour;
                 target_filter2_duration_minute = minute;
                 target_filter2_enable = true;
-                send_command = 0x25; // Filter configuration command
                 ESP_LOGI(TAG, "Filter 2 duration set to %02d:%02d", hour, minute);
             }
         }
@@ -259,6 +252,10 @@ namespace esphome
             ESP_LOGI(TAG, "Clearing spa reminder");
         }
 
+        void BalboaSpa::apply_filter_settings()
+        {
+            send_command = 0x25;
+        }
         void BalboaSpa::read_serial()
         {
             if (!read_byte(&received_byte))
